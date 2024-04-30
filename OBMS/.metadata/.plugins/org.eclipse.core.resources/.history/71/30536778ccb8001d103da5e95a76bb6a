@@ -1,0 +1,81 @@
+package com.userfront.Service.UserServiceImpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.userfront.Dao.CurrentAccountDao;
+import com.userfront.Dao.CurrentTranscationDao;
+import com.userfront.Dao.SavingAccountDao;
+import com.userfront.Dao.SavingTranscationDao;
+import com.userfront.Domain.CurrentTranscation;
+import com.userfront.Domain.SavingTranscation;
+import com.userfront.Domain.User;
+import com.userfront.Service.TranscationService;
+import com.userfront.Service.UserService;
+
+@Service
+public class TranscationServiceImpl implements TranscationService {
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private CurrentAccountDao currentAccountDao;
+
+	@Autowired
+	private SavingAccountDao savingAccountDao;
+
+	@Autowired
+	private CurrentTranscationDao currentTranscationDao;
+
+	@Autowired
+	private SavingTranscationDao savingTranscationDao;
+
+	@Override
+	public List<CurrentTranscation> findCurrentTranscationList(String username) {
+		// TODO Auto-generated method stub
+		User user = userService.findByUserName(username);
+		List<CurrentTranscation> currentTransactionList = user.getCurrentAccount().getCurrentTransactionList();
+		return currentTransactionList;
+	}
+
+	@Override
+	public List<SavingTranscation> findSavingTranscationList(String username) {
+		// TODO Auto-generated method stub
+		User user = userService.findByUserName(username);
+		List<SavingTranscation> savingTransactionList = user.getSavingAccount().getSavingTransactionList();
+
+		return savingTransactionList;
+	}
+
+	@Override
+	public void saveCurrentDepositTranscation(CurrentTranscation currentTranscation) {
+		// TODO Auto-generated method stub
+
+		currentTranscationDao.save(currentTranscation);
+	}
+
+	@Override
+	public void saveSavingDepositTranscation(SavingTranscation savingTranscation) {
+		// TODO Auto-generated method stub
+
+		savingTranscationDao.save(savingTranscation);
+
+	}
+
+	@Override
+	public void saveCurrentWithdrawTranscation(CurrentTranscation currentTranscation) {
+		// TODO Auto-generated method stub
+		currentTranscationDao.save(currentTranscation);
+	}
+
+	@Override
+	public void saveSavingWithdrawTranscation(SavingTranscation savingTranscation) {
+		// TODO Auto-generated method stub
+		savingTranscationDao.save(savingTranscation);
+
+	}
+
+}

@@ -1,0 +1,13 @@
+package com.userfront.Service;
+
+import java.beans.JavaBean;
+
+import com.userfront.Domain.CurrentAccount;
+import com.userfront.Domain.SavingAccount;
+
+@JavaBean
+public interface AccountService {
+
+	CurrentAccount createCurrentAccount();
+	SavingAccount  createSavingAccount();
+}

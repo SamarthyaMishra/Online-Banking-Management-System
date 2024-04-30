@@ -1,0 +1,9 @@
+package com.userfront.Dao;
+
+import com.userfront.Domain.CurrentTranscation;
+
+public interface CurrentTranscationDao {
+
+	void save(CurrentTranscation currentTranscation);
+
+}

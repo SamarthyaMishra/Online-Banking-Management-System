@@ -1,0 +1,12 @@
+package com.userfront.Service;
+
+
+
+import com.userfront.Domain.CurrentAccount;
+import com.userfront.Domain.SavingAccount;
+
+public interface AccountService {
+
+	CurrentAccount createCurrentAccount();
+	SavingAccount  createSavingAccount();
+}

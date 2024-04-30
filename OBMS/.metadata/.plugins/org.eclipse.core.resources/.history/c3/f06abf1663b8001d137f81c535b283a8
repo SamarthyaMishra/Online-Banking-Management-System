@@ -1,0 +1,9 @@
+package com.userfront.Dao;
+
+import com.userfront.Domain.SavingTranscation;
+
+public interface SavingTranscationDao {
+
+	void save(SavingTranscation savingsTransaction);
+
+}

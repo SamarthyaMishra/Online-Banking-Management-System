@@ -1,0 +1,59 @@
+package com.userfront.Service.UserServiceImpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.userfront.Dao.CurrentAccountDao;
+import com.userfront.Dao.SavingAccountDao;
+import com.userfront.Domain.CurrentTranscation;
+import com.userfront.Domain.SavingTranscation;
+import com.userfront.Domain.User;
+import com.userfront.Service.TranscationService;
+import com.userfront.Service.UserService;
+
+@Service
+public class TranscationServiceImpl implements TranscationService {
+
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private CurrentAccountDao currentAccountDao;
+	
+	@Autowired
+	private SavingAccountDao savingAccountDao;
+	
+	public List<CurrentTranscation> findCurrentTranscationList(String username){
+        User user = userService.findByUserName(username);
+        List<CurrentTranscation>currentTransactionList = user.getCurrentAccount().getCurrentTransactionList();
+
+        return currentTransactionList;
+    }
+
+    public List<SavingTranscation> findSavingsTransactionList(String username) {
+        User user = userService.findByUserName(username);
+        List<SavingTranscation> savingsTransactionList = user.getSavingAccount().getSavingTransactionList();
+
+        return savingsTransactionList;
+    }
+
+    public void saveCurrentDepositTransaction(CurrentTranscation currentTranscation) {
+    	CurrentTranscationDao.save(currentTranscation);
+    }
+
+    public void saveSavingsDepositTransaction(SavingsTransaction savingsTransaction) {
+        savingsTransactionDao.save(savingsTransaction);
+    }
+    
+    public void savePrimaryWithdrawTransaction(PrimaryTransaction primaryTransaction) {
+        primaryTransactionDao.save(primaryTransaction);
+    }
+
+    public void saveSavingsWithdrawTransaction(SavingsTransaction savingsTransaction) {
+        savingsTransactionDao.save(savingsTransaction);
+    }
+    
+	
+}

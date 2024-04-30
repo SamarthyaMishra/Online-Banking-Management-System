@@ -1,0 +1,9 @@
+package com.userfront.Service;
+
+import com.userfront.Domain.CurrentAccount;
+
+public interface AccountService {
+
+	CurrentAccount createCurrentAccount();
+	
+}

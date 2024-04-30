@@ -1,0 +1,35 @@
+package com.userfront.Controller;
+
+import java.security.Principal;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.userfront.Domain.CurrentAccount;
+import com.userfront.Domain.User;
+import com.userfront.Service.UserService;
+
+@Controller
+@RequestMapping("/account")
+public class AccountController {
+	
+	@Autowired
+	private UserService userService;
+
+	@RequestMapping("/currentAccount")
+	public String currentAccount(Model model,Principal principal)
+	{
+        User user = userService.findByUserName(principal.getName());
+	    CurrentAccount currentAccount = user.getCurrentAccount();
+	    model.addAttribute("currentAccount",currentAccount);
+       return "currentAccount";
+       
+	}
+
+	@RequestMapping("/savingAccount")
+	public String savingAccount() {
+		return "savingAccount";
+	}
+}

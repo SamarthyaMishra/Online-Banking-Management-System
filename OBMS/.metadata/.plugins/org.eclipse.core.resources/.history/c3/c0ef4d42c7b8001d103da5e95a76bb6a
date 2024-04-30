@@ -1,0 +1,95 @@
+//package com.userfront.Service.UserServiceImpl;
+//
+//import java.util.List;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Service;
+//
+//import com.userfront.Dao.CurrentAccountDao;
+//import com.userfront.Dao.CurrentTranscationDao;
+//import com.userfront.Dao.SavingAccountDao;
+//import com.userfront.Dao.SavingTranscationDao;
+//import com.userfront.Domain.CurrentTranscation;
+//import com.userfront.Domain.SavingTranscation;
+//import com.userfront.Domain.User;
+//import com.userfront.Service.TranscationService;
+//import com.userfront.Service.UserService;
+//
+//@Service
+//public class TranscationServiceImpl implements TranscationService {
+//
+//	@Autowired
+//	private UserService userService;
+//	
+//	@Autowired
+//	private CurrentAccountDao currentAccountDao;
+//	
+//	@Autowired
+//	private SavingAccountDao savingAccountDao;
+//	
+//	@Autowired
+//	private CurrentTranscationDao currentTranscationDao;
+//	
+//	@Autowired
+//	private SavingTranscationDao savingTranscationDao;
+//	
+//	public List<CurrentTranscation> findCurrentTranscationList(String username){
+//        User user = userService.findByUserName(username);
+//        List<CurrentTranscation>currentTransactionList = user.getCurrentAccount().getCurrentTransactionList();
+//
+//        return currentTransactionList;
+//    }
+//
+//    public List<SavingTranscation> findSavingsTransactionList(String username) {
+//        User user = userService.findByUserName(username);
+//        List<SavingTranscation> savingsTransactionList = user.getSavingAccount().getSavingTransactionList();
+//
+//        return savingsTransactionList;
+//    }
+//
+//    public void saveCurrentDepositTransaction(CurrentTranscation currentTranscation) {
+//    	currentTranscationDao.save(currentTranscation);
+//    }
+//
+//    public void saveSavingsDepositTransaction(SavingTranscation  savingTranscation) {
+//        savingTranscationDao.save(savingTranscation);
+//    }
+//    
+//    public void savePrimaryWithdrawTransaction(CurrentTranscation currentTranscation) {
+//    	currentTranscationDao.save(currentTranscation);
+//    }
+//
+//	@Override
+//	public List<SavingTranscation> findSavingTranscationList(String username) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public void savePrimaryDepositTranscation(CurrentTranscation currentTranscation) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void saveSavingsDepositTranscation(SavingTranscation savingTranscation) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void savePrimaryWithdrawTranscation(CurrentTranscation currentTranscation) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void saveSavingsWithdrawTranscation(SavingTranscation savingTranscation) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	
+//    
+//	
+//}

@@ -1,0 +1,12 @@
+package com.userfront.Dao;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.userfront.Domain.CurrentAccount;
+@Repository
+public interface CurrentAccountDao extends CrudRepository<CurrentAccount, Long> {
+
+	CurrentAccount findByAccountNumber(int accountNumber);
+
+}

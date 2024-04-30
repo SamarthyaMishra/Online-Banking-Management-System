@@ -1,0 +1,102 @@
+package com.userfront.Domain;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.userfront.Domain.Security.Authority;
+import com.userfront.Domain.Security.UserRole;
+
+@Entity
+public class User implements UserDetails {
+
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "userID", nullable = false, unique = true)
+	private Long userID;
+	private String userName;
+	private String password;
+	private String firstName;
+	private String lastName;
+
+	@Column(name = "email", nullable = false, unique = true)
+	private String email;
+	private String phone;
+
+	private boolean enabled = true;
+
+	@OneToOne
+	private CurrentAccount currentAccount;
+
+	@OneToOne
+	private SavingAccount savingAccount;
+
+	@OneToMany(mappedBy= "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Appointment> appointmentList;
+
+	@OneToMany(mappedBy ="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Recipient> recipientList;
+	
+	 @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	    @JsonIgnore
+	    private Set<UserRole> userRoles = new HashSet<>();
+	 
+	
+
+	@Override
+	public String toString() {
+		return "User [userID=" + userID + ", userName=" + userName + ", password=" + password + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", email=" + email + ", phone=" + phone + ", enabled="
+				+ enabled + ", currentAccount=" + currentAccount + ", savingAccount=" + savingAccount + "]";
+	}
+
+	@Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
+        return authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return userName;
+	}
+   
+}

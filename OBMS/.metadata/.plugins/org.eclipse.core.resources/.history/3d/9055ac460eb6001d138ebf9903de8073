@@ -1,0 +1,12 @@
+package com.userfront.Service;
+
+import org.springframework.stereotype.Service;
+
+import com.userfront.Domain.CurrentAccount;
+import com.userfront.Domain.SavingAccount;
+@Service
+public interface AccountService {
+
+	CurrentAccount createCurrentAccount();
+	SavingAccount  createSavingAccount();
+}

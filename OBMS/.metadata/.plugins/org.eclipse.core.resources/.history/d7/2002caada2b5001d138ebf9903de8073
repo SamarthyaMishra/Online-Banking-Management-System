@@ -1,0 +1,9 @@
+package com.userfront.Dao;
+
+import com.userfront.Domain.CurrentAccount;
+
+public interface CurrentAccountDao {
+
+	CurrentAccount findByAccountNumber(int accountNumber);
+
+}

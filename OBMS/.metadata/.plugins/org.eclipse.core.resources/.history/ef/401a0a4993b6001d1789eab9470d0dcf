@@ -1,0 +1,14 @@
+package com.userfront.Dao;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.userfront.Domain.SavingAccount;
+
+@Repository
+public interface SavingAccountDao extends CrudRepository<SavingAccount, Long> {
+
+	SavingAccount findByAccountNumber(int accountNumber);
+
+
+}

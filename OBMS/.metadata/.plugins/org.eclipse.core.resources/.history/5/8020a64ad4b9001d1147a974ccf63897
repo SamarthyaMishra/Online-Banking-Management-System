@@ -1,0 +1,16 @@
+package com.userfront.Dao;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.userfront.Domain.Appointment;
+
+@Repository
+public interface AppointmentDao extends CrudRepository<Appointment, Long> {
+
+	List<Appointment> findAll();
+
+	
+}

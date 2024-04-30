@@ -1,0 +1,16 @@
+package com.userfront.Dao;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+
+import com.userfront.Domain.Appointment;
+
+public interface AppointmentDao extends CrudRepository<Appointment, Long> {
+
+	List<Appointment> findAll();
+	
+	@Query("SELECT * FROM Appointment a WHERE a.id =? ")
+    public Appointment findOne(Long id);
+}

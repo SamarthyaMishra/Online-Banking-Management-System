@@ -1,0 +1,9 @@
+package com.userfront.Service;
+
+import com.userfront.Domain.Appointment;
+
+public interface AppointmentService {
+
+	Appointment createAppointment(Appointment appointment);
+
+}

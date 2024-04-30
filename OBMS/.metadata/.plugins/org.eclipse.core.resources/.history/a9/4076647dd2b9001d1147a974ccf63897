@@ -1,0 +1,9 @@
+package com.userfront.Service.UserServiceImpl;
+
+import com.userfront.Service.AppointmentService;
+
+public class AppointmentServiceImpl implements AppointmentService {
+	
+	
+
+}

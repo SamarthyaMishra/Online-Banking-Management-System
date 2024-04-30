@@ -1,0 +1,81 @@
+package com.userfront.Service.UserServiceImpl;
+
+import java.math.BigDecimal;
+import java.security.Principal;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.userfront.Dao.CurrentAccountDao;
+import com.userfront.Dao.SavingAccountDao;
+import com.userfront.Domain.CurrentAccount;
+import com.userfront.Domain.CurrentTranscation;
+import com.userfront.Domain.SavingAccount;
+import com.userfront.Domain.SavingTranscation;
+import com.userfront.Domain.User;
+import com.userfront.Service.AccountService;
+import com.userfront.Service.UserService;
+
+@Service
+public class AccountServiceImpl implements AccountService {
+
+	private static int nextAccountNumber = 11223145;
+
+	@Autowired
+	private CurrentAccountDao currentAccountDao;
+
+	@Autowired
+	private SavingAccountDao savingAccountDao;
+
+	@Autowired
+	private UserService userService;
+
+	@Override
+	public SavingAccount createSavingAccount() {
+		SavingAccount savingAccount = new SavingAccount();
+		savingAccount.setAccountBalance(new BigDecimal(0.0));
+		savingAccount.setAccountNumber(accountGen());
+
+		savingAccountDao.save(savingAccount);
+
+		return savingAccountDao.findByAccountNumber(savingAccount.getAccountNumber());
+	}
+
+	@Override
+	public CurrentAccount createCurrentAccount() {
+		// TODO Auto-generated method stub
+		CurrentAccount currentAccount = new CurrentAccount();
+		currentAccount.setAccountBalance(new BigDecimal(0.0));
+		currentAccount.setAccountNumber(accountGen());
+
+		currentAccountDao.save(currentAccount);
+
+		return currentAccountDao.findByAccountNumber(currentAccount.getAccountNumber());
+	}
+
+	public void deposit(String accountType, double amount, Principal principal) {
+		User user = userService.findByUserName(principal.getName());
+
+		if (accountType.equalsIgnoreCase("Current")) {
+			CurrentAccount currentAccount = user.getCurrentAccount();
+			currentAccount.setAccountBalance(currentAccount.getAccountBalance().add(new BigDecimal(amount)));
+			currentAccountDao.save(currentAccount);
+            Date date = new Date();
+			CurrentTranscation currentTranscation = new CurrentTranscation(date, "Deposit to Primary Account",
+					"Account", "Finished", amount, currentAccount.getAccountBalance(), currentAccount);
+
+		} else if (accountType.equalsIgnoreCase("Saving")) {
+			SavingAccount savingAccount = user.getSavingAccount();
+			savingAccount.setAccountBalance(savingAccount.getAccountBalance().add(new BigDecimal(amount)));
+			savingAccountDao.save(savingAccount);
+			  Date date = new Date();
+			SavingTranscation savingTransaction = new SavingTranscation(date, "Deposit to savings Account", "Account",
+					"Finished", amount, savingAccount.getAccountBalance(), savingAccount);
+		}
+	}
+
+	private int accountGen() {
+		return ++nextAccountNumber;
+	}
+}

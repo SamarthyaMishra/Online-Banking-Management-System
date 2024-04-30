@@ -1,0 +1,22 @@
+package com.userfront.Service;
+
+import java.util.List;
+
+import com.userfront.Domain.CurrentTranscation;
+import com.userfront.Domain.SavingTranscation;
+
+public interface TranscationService {
+
+	List<CurrentTranscation> findCurrentTransactionList(String username);
+
+    List<SavingTranscation> findSavingTransactionList(String username);
+
+    void savePrimaryDepositTransaction(CurrentTranscation currentTranscation);
+
+    void saveSavingsDepositTransaction(SavingTranscation savingTranscation);
+    
+    void savePrimaryWithdrawTransaction(CurrentTranscation currentTranscation);
+    
+    void saveSavingsWithdrawTransaction(SavingTranscation savingTranscation);
+	
+}

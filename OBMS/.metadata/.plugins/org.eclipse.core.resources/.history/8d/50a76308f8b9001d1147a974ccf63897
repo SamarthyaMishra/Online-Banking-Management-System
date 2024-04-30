@@ -1,0 +1,17 @@
+package com.userfront.Dao;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import com.userfront.Domain.Appointment;
+
+public interface AppointmentDao extends CrudRepository<Appointment, Long> {
+
+	List<Appointment> findAll();
+	
+	@Query("from Appointment where id = :id")//Appointment is the entity class name 
+	List<Appointment> findOne(@Param("x") long id);
+}

@@ -1,0 +1,11 @@
+package com.userfront.Dao;
+
+import com.userfront.Domain.SavingAccount;
+
+public interface SavingAccountDao {
+
+	SavingAccount findByAccountNumber(int accountNumber);
+
+	void save(SavingAccount savingsAccount);
+
+}

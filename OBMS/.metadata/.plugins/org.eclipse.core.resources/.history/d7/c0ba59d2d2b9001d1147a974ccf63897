@@ -1,0 +1,9 @@
+package com.userfront.Dao;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.userfront.Domain.Appointment;
+
+public interface AppointmentDao extends CrudRepository<Appointment, Long> {
+
+}
